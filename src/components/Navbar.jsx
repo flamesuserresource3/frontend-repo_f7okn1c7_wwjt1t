@@ -1,4 +1,5 @@
 import { Rocket, Mail, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   return (
@@ -6,16 +7,28 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <a href="#" className="flex items-center gap-2">
-            <div className="relative h-8 w-8 grid place-items-center rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 text-white shadow-md shadow-emerald-500/30">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="relative h-8 w-8 grid place-items-center rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 text-white shadow-md shadow-emerald-500/30"
+            >
               <Rocket className="h-5 w-5" />
-            </div>
+            </motion.div>
             <span className="font-semibold text-xl tracking-tight">Blastify</span>
           </a>
 
           <nav className="hidden md:flex items-center gap-8 text-sm">
-            <a href="#features" className="text-gray-600 hover:text-gray-900 transition">Features</a>
-            <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition">Pricing</a>
-            <a href="#faq" className="text-gray-600 hover:text-gray-900 transition">FAQ</a>
+            {[
+              { href: "#features", label: "Features" },
+              { href: "#pricing", label: "Pricing" },
+              { href: "#faq", label: "FAQ" },
+            ].map((link) => (
+              <a key={link.href} href={link.href} className="relative text-gray-600 hover:text-gray-900 transition">
+                {link.label}
+                <span className="absolute left-0 -bottom-1 h-px w-0 bg-gray-900 transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
           </nav>
 
           <div className="flex items-center gap-2">

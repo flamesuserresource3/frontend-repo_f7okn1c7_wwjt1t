@@ -1,4 +1,5 @@
 import { Check, Rocket } from "lucide-react";
+import { motion } from "framer-motion";
 
 const tiers = [
   {
@@ -60,12 +61,16 @@ export default function Pricing() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {tiers.map((tier) => (
-            <div
+          {tiers.map((tier, idx) => (
+            <motion.div
               key={tier.name}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 * idx, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.2 }}
               className={`relative rounded-2xl border ${
                 tier.highlight ? "border-emerald-300 bg-white shadow-xl" : "border-gray-200 bg-white shadow-sm"
-              } p-6 flex flex-col`}
+              } p-6 flex flex-col hover:shadow-2xl hover:-translate-y-0.5 transition-all`}
             >
               {tier.highlight && (
                 <div className="absolute -top-3 right-6 rounded-full bg-emerald-600 px-3 py-1 text-xs font-medium text-white shadow">
@@ -96,7 +101,7 @@ export default function Pricing() {
                   {tier.cta}
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

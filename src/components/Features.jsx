@@ -1,4 +1,5 @@
 import { MessageCircle, Mail, Users, Shield } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -31,6 +32,19 @@ const features = [
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export default function Features() {
   return (
     <section id="features" className="py-20 bg-white">
@@ -44,18 +58,28 @@ export default function Features() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {features.map((f) => (
-            <article key={f.title} className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg">
+            <motion.article
+              key={f.title}
+              variants={item}
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:shadow-xl hover:-translate-y-0.5"
+            >
               <div className={`inline-grid place-items-center h-12 w-12 rounded-xl bg-gradient-to-br ${f.color} text-white shadow-md shadow-black/10`}>
                 <f.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 text-lg font-semibold text-gray-900">{f.title}</h3>
               <p className="mt-2 text-sm text-gray-600 leading-relaxed">{f.description}</p>
               <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gray-100 group-hover:bg-emerald-50 transition-colors" />
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

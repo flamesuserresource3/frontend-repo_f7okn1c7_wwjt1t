@@ -1,25 +1,62 @@
 import { ArrowRight, Shield, Users, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import Spline from "@splinetool/react-spline";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.12 * i, ease: [0.22, 1, 0.36, 1] } })
+};
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 via-white to-cyan-100" aria-hidden />
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-emerald-50" aria-hidden />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+      {/* Decorative gradients that won't block Spline interactions */}
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-gradient-to-tr from-purple-400/20 via-blue-400/20 to-emerald-400/20 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Copy */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-xs text-emerald-700 mb-4">
+            <motion.div
+              className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-xs text-emerald-700 mb-4"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={0}
+            >
               <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
               Multi‑channel Messaging Automation
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
-              Blast messages via WhatsApp and Gmail — all in one place.
-            </h1>
-            <p className="mt-5 text-lg text-gray-600 max-w-xl">
-              Blastify lets you create, schedule, and send compliant bulk campaigns across your favorite channels. Segment audiences, personalize content, and track performance in real time.
-            </p>
+            </motion.div>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <motion.h1
+              className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+            >
+              Blast messages via WhatsApp and Gmail — all in one place.
+            </motion.h1>
+
+            <motion.p
+              className="mt-5 text-lg text-gray-600 max-w-xl"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={2}
+            >
+              Blastify lets you create, schedule, and send compliant bulk campaigns across your favorite channels. Segment audiences, personalize content, and track performance in real time.
+            </motion.p>
+
+            <motion.div
+              className="mt-8 flex flex-col sm:flex-row gap-3"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={3}
+            >
               <a
                 href="#pricing"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-900 text-white px-5 py-3 font-medium shadow hover:bg-black"
@@ -32,37 +69,40 @@ export default function Hero() {
               >
                 See it in action
               </a>
-            </div>
+            </motion.div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4">
+            <motion.div
+              className="mt-10 grid grid-cols-3 gap-4"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={4}
+            >
               <Stat icon={<Zap className="h-4 w-4 text-emerald-600" />} title="99.9%" subtitle="Uptime SLA" />
               <Stat icon={<Shield className="h-4 w-4 text-emerald-600" />} title="GDPR" subtitle="Compliant" />
               <Stat icon={<Users className="h-4 w-4 text-emerald-600" />} title="10k+" subtitle="Marketers" />
-            </div>
+            </motion.div>
           </div>
 
-          <div className="relative">
-            <div className="relative rounded-2xl border border-emerald-200 bg-white/70 p-4 shadow-lg">
-              <div className="rounded-xl bg-gradient-to-br from-emerald-50 to-cyan-50 p-6">
-                <div className="grid gap-4">
-                  <div className="rounded-lg border border-gray-200 bg-white p-4">
-                    <h3 className="font-semibold text-gray-800">WhatsApp Broadcast</h3>
-                    <p className="text-sm text-gray-600">Upload contacts and schedule personalized messages with dynamic variables.</p>
-                  </div>
-                  <div className="rounded-lg border border-gray-200 bg-white p-4">
-                    <h3 className="font-semibold text-gray-800">Gmail Campaign</h3>
-                    <p className="text-sm text-gray-600">Design templates, A/B test subject lines, and monitor open & click rates.</p>
-                  </div>
-                  <div className="rounded-lg border border-gray-200 bg-white p-4">
-                    <h3 className="font-semibold text-gray-800">Smart Segmentation</h3>
-                    <p className="text-sm text-gray-600">Target by tags, engagement, geography, or custom fields in seconds.</p>
-                  </div>
-                </div>
-              </div>
+          {/* Right: 3D Spline Scene */}
+          <motion.div
+            className="relative h-[420px] sm:h-[520px] w-full"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={1.5}
+          >
+            <div className="absolute inset-0 rounded-2xl border border-emerald-200/60 bg-white/60 shadow-lg overflow-hidden">
+              <Spline
+                scene="https://prod.spline.design/4cHQr84zOGAHOehh/scene.splinecode"
+                style={{ width: "100%", height: "100%" }}
+              />
+
+              {/* Soft radial glow overlays that don't block pointer events */}
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-purple-500/15 via-blue-500/10 to-transparent blur-3xl" />
+              <div className="pointer-events-none absolute right-6 bottom-6 h-32 w-32 rounded-full bg-emerald-400/20 blur-2xl" />
             </div>
-            <div className="pointer-events-none absolute -bottom-8 -right-8 h-40 w-40 rounded-full bg-emerald-400/20 blur-2xl" />
-            <div className="pointer-events-none absolute -top-8 -left-8 h-40 w-40 rounded-full bg-cyan-400/20 blur-2xl" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
